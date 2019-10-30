@@ -94,7 +94,7 @@ class Bullet2(pygame.sprite.Sprite):
         
         self.image = bullet_img
         
-        self.image.set_colorkey(WHITE)
+        self.image.set_colorkey(BLACK)
         
         self.rect = self.image.get_rect()
         
@@ -225,12 +225,12 @@ def game_screen(screen,p1,p2):
                     if event.key == pygame.K_d:
                         player2.speedx = 8
                     if event.key == pygame.K_SPACE:
-                        bullet = Bullet1(player1.rect.centerx, player1.rect.top, assets["bullet1_img"])
+                        bullet = Bullet1(player1.rect.centerx, player1.rect.top, assets["bullet{0}_img".format(p1)])
                         all_sprites.add(bullet)
                         bullets1.add(bullet)
                         pew_sound.play()
                     if event.key == pygame.K_t:
-                        bullet = Bullet2(player2.rect.centerx, player2.rect.top, assets["bullet2_img"])
+                        bullet = Bullet2(player2.rect.centerx, player2.rect.top, assets["bullet{0}_img".format(p2)])
                         all_sprites.add(bullet)
                         bullets2.add(bullet)
                         pew_sound.play()
@@ -252,9 +252,9 @@ def game_screen(screen,p1,p2):
         
         if state == PLAYING:
             
-            hits = pygame.sprite.groupcollide(bullets1, bullets2, True, True, pygame.sprite.collide_circle)
+            hits = pygame.sprite.groupcollide(bullets1, bullets2, True, True, pygame.sprite.collide_mask)
                 
-            hits = pygame.sprite.spritecollide(player1, bullets2, False, pygame.sprite.collide_circle)
+            hits = pygame.sprite.spritecollide(player1, bullets2, False, pygame.sprite.collide_mask)
             if hits:
                 boom_sound.play()
                 player1.kill()
@@ -265,7 +265,7 @@ def game_screen(screen,p1,p2):
                 explosion_tick = pygame.time.get_ticks()
                 explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
             
-            hits = pygame.sprite.spritecollide(player2, bullets1, False, pygame.sprite.collide_circle)
+            hits = pygame.sprite.spritecollide(player2, bullets1, False, pygame.sprite.collide_mask)
             if hits:
                 boom_sound.play()
                 player2.kill()

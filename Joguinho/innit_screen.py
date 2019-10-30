@@ -21,6 +21,10 @@ def init_screen(screen):
             if event.type == pygame.KEYUP:
                 state = SELECT
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    state = QUIT
+                    running  = False
                     
         screen.fill(BLACK)
         screen.blit(background, background_rect)
