@@ -1,7 +1,8 @@
 import pygame
 from os import path
+import time
 
-from config import img_dir, snd_dir, fnt_dir, WIDTH, HEIGHT, BLACK, FPS, QUIT, WHITE, FIM_1, FIM_2, DONE, RED
+from config import img_dir, snd_dir, fnt_dir, WIDTH, HEIGHT, BLACK, FPS, QUIT, FIM_1, FIM_2, DONE, RED
 
 
 class Player1(pygame.sprite.Sprite):
@@ -24,9 +25,23 @@ class Player1(pygame.sprite.Sprite):
         self.speedx = 0
         
         self.radius = 25
+        
+        self.bullet_special = False
+        self.shot = False
+        
+        self.last_update = pygame.time.get_ticks()
     
     def update(self):
         self.rect.x += self.speedx
+        
+        now = pygame.time.get_ticks()
+        
+        elapsed_ticks = now - self.last_update
+
+        if elapsed_ticks > 35000:
+            self.bullet_special=True
+            self.shot = False
+            
         
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
@@ -236,7 +251,26 @@ def game_screen(screen,p1,p2):
                         pew_sound.play()
                     if event.key == pygame.K_q:
                         state = DONE
+                    if event.key == pygame.K_n:
+                        if player1.bullet_special == True and player1.shot == False:
+                            bullet = Bullet1(player1.rect.centerx, player1.rect.top, assets["bullet{0}_img".format(3)])
+                            all_sprites.add(bullet)
+                            bullets1.add(bullet)
+                            pew_sound.play()
+                            player1.last_update = pygame.time.get_ticks()
+                            player1.shot=True
+                            
                     
+                        
+                            
+#                    for e in range(0,500):
+#                        tempo = time.sleep(e)
+#                        if tempo >= 10:
+#                            if event.key == pygame.K_m:
+#                                bean = Bullet(player1.rect.centerx, player1.rect.top, assets["bullet{0}_img".format(p1)])
+#                                all_sprites.add(bean)
+#                                bullets1.add(bean)
+#                            
                         
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
@@ -309,6 +343,8 @@ def game_screen(screen,p1,p2):
         text_rect = text_surface.get_rect()
         text_rect.topright = (WIDTH-10, 10)
         screen.blit(text_surface, text_rect)
+        
+        
         
         all_sprites.draw(screen)
         

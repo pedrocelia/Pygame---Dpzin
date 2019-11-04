@@ -29,9 +29,9 @@ try:
         elif state == GAME:
             state = game_screen(screen,p1,p2)
         elif state == FIM_1:
-            state = fim1_screen(screen)
-        elif state == FIM_2:
             state = fim2_screen(screen)
+        elif state == FIM_2:
+            state = fim1_screen(screen)
         elif state == SELECT:
             state,p1,p2 = select_screen(screen)
         else:
