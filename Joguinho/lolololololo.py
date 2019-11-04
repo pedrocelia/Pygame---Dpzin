@@ -1,5 +1,6 @@
 # Importando as bibliotecas necessárias.
 import pygame
+import time
 
 from config import WIDTH, HEIGHT, INIT, GAME, QUIT, FIM_1, DONE, SELECT, FIM_2
 from innit_screen import init_screen
