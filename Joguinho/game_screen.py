@@ -2,7 +2,7 @@ import pygame
 from os import path
 import time
 
-from config import img_dir, snd_dir, fnt_dir, WIDTH, HEIGHT, BLACK, FPS, QUIT, FIM_1, FIM_2, DONE, RED
+from config import img_dir, snd_dir, fnt_dir, WIDTH, HEIGHT, BLACK, WHITE, FPS, QUIT, FIM_1, FIM_2, DONE, RED
 
 
 class Player1(pygame.sprite.Sprite):
@@ -38,10 +38,13 @@ class Player1(pygame.sprite.Sprite):
         
         elapsed_ticks = now - self.last_update
 
-        if elapsed_ticks > 35000:
+        if elapsed_ticks > 3500:
             self.bullet_special=True
             self.shot = False
-            
+               
+            self.image = pygame.transform.scale(pygame.image.load(path.join(img_dir, "nave_0_special.jpg")).convert(), (70, 74))
+            self.image.set_colorkey(WHITE)
+        
         
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
@@ -69,8 +72,22 @@ class Player2(pygame.sprite.Sprite):
         self.speedx = 0
 
         self.radius = 25
+        
+        self.bullet_special = False
+        self.shot = False
+        
+        self.last_update = pygame.time.get_ticks()
 
     def update(self):
+        
+        now = pygame.time.get_ticks()
+        
+        elapsed_ticks = now - self.last_update
+
+        if elapsed_ticks > 35000:
+            self.bullet_special=True
+            self.shot = False
+        
         self.rect.x += self.speedx
         
         if self.rect.right > WIDTH:
@@ -172,6 +189,9 @@ def load_assets(img_dir, snd_dir, fnt_dir):
     assets["destroy_sound"] = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
     assets["pew_sound"] = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
     explosion_anim = []
+    
+#    assets["nave_0_special"] = pygame.image.load(path.join(img_dir, "nave_0_special.jpeg")).convert()
+    
     for i in range(7):
         filename = 'regularExplosion0{}.png'.format(i)
         img = pygame.image.load(path.join(img_dir, filename)).convert()
@@ -259,7 +279,15 @@ def game_screen(screen,p1,p2):
                             pew_sound.play()
                             player1.last_update = pygame.time.get_ticks()
                             player1.shot=True
-                            
+                    
+                    if event.key == pygame.K_g:
+                        if player2.bullet_special == True and player2.shot == False:
+                            bullet = Bullet2(player2.rect.centerx, player2.rect.top, assets["bullet{0}_img".format(3)])
+                            all_sprites.add(bullet)
+                            bullets2.add(bullet)
+                            pew_sound.play()
+                            player2.last_update = pygame.time.get_ticks()
+                            player2.shot=True
                     
                         
                             
