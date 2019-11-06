@@ -17,13 +17,13 @@ def fim1_screen(screen):
             if event.type == pygame.QUIT:
                 state = QUIT
                 running = False
-            if event.type == pygame.KEYUP:
-                state = GAME
-                running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     state = QUIT
                     running  = False
+                if event.key == pygame.K_r:
+                    state = GAME
+                    running = False
         
         screen.fill(BLACK)
         screen.blit(background, background_rect)
