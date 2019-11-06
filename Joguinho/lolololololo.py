@@ -1,8 +1,7 @@
 # Importando as bibliotecas necessárias.
 import pygame
-import time
 
-from config import WIDTH, HEIGHT, INIT, GAME, QUIT, FIM_1, DONE, SELECT, FIM_2
+from config import WIDTH, HEIGHT, INIT, GAME, QUIT, FIM_1, SELECT, FIM_2
 from innit_screen import init_screen
 from game_screen import game_screen
 from tela_vitoria import fim1_screen

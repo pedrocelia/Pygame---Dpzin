@@ -1,6 +1,6 @@
 import pygame
 from os import path
-import time
+
 
 from config import img_dir, snd_dir, fnt_dir, WIDTH, HEIGHT, BLACK, WHITE, FPS, QUIT, FIM_1, FIM_2, DONE, RED
 
@@ -213,7 +213,7 @@ def game_screen(screen,p1,p2):
     background_rect = background.get_rect()
     
 
-    pygame.mixer.music.load(path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
+    pygame.mixer.music.load(path.join(snd_dir, 'song.mp3'))
     pygame.mixer.music.set_volume(0.4)
     boom_sound = assets["boom_sound"]
     destroy_sound = assets["destroy_sound"]
