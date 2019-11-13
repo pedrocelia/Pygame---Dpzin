@@ -1,7 +1,7 @@
 import pygame
 from os import path
 
-from config import img_dir, BLACK, FPS, GAME, QUIT, SELECT, WIDTH, HEIGHT
+from config import img_dir, BLACK, FPS, GAME, QUIT, SELECT, WIDTH, HEIGHT, SELECAO_MINIGAME
 
 
 def init_screen(screen):
