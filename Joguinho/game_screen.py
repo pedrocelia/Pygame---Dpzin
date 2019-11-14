@@ -2,7 +2,7 @@ import pygame
 from os import path
 
 
-from config import img_dir, snd_dir, fnt_dir, WIDTH, HEIGHT, BLACK, WHITE, FPS, QUIT, FIM_1, FIM_2, DONE, RED
+from config import img_dir, snd_dir, fnt_dir, WIDTH, HEIGHT, BLACK, FPS, QUIT, FIM_1, FIM_2, DONE, RED, YELLOW
 
 
 class Player1(pygame.sprite.Sprite):
@@ -38,12 +38,11 @@ class Player1(pygame.sprite.Sprite):
         
         elapsed_ticks = now - self.last_update
 
-        if elapsed_ticks > 3500:
+        if elapsed_ticks > 20000:
             self.bullet_special=True
             self.shot = False
                
-            self.image = pygame.transform.scale(pygame.image.load(path.join(img_dir, "nave_0_special.jpg")).convert(), (70, 74))
-            self.image.set_colorkey(WHITE)
+            
         
         
         if self.rect.right > WIDTH:
@@ -84,7 +83,7 @@ class Player2(pygame.sprite.Sprite):
         
         elapsed_ticks = now - self.last_update
 
-        if elapsed_ticks > 35000:
+        if elapsed_ticks > 20000:
             self.bullet_special=True
             self.shot = False
         
@@ -107,7 +106,7 @@ class Bullet1(pygame.sprite.Sprite):
         
         self.rect = self.image.get_rect()
         
-        self.rect.bottom = y
+        self.rect.bottom = y 
         self.rect.centerx = x
         self.speedy = -10
 
@@ -127,10 +126,13 @@ class Bullet2(pygame.sprite.Sprite):
         self.image = bullet_img
         
         self.image.set_colorkey(BLACK)
+        self.original = bullet_img
+        
+        self.image = pygame.transform.rotate(self.original, 180)
         
         self.rect = self.image.get_rect()
         
-        self.rect.bottom = y
+        self.rect.bottom = y + 85
         self.rect.centerx = x
         self.speedy = 10
 
@@ -140,6 +142,55 @@ class Bullet2(pygame.sprite.Sprite):
         
         if self.rect.bottom < 0:
             self.kill()
+
+
+
+class Super_Bullet1(pygame.sprite.Sprite):
+    
+    def __init__(self, x, y, bullet_img):
+        
+        pygame.sprite.Sprite.__init__(self)
+        
+        self.image = bullet_img
+        
+        self.image.set_colorkey(BLACK)
+        
+        self.rect = self.image.get_rect()
+        
+        self.rect.bottom = y - 40
+        self.rect.centerx = x
+        self.speedy = -10
+
+    def update(self):
+        self.rect.y += self.speedy
+        
+        if self.rect.bottom < 0:
+            self.kill()
+
+
+class Super_Bullet2(pygame.sprite.Sprite):
+    
+    def __init__(self, x, y, bullet_img):
+        
+        pygame.sprite.Sprite.__init__(self)
+        
+        self.image = bullet_img
+        
+        self.image.set_colorkey(BLACK)
+        
+        self.rect = self.image.get_rect()
+        
+        self.rect.bottom = y + 190
+        self.rect.centerx = x
+        self.speedy = 10
+
+    
+    def update(self):
+        self.rect.y += self.speedy
+        
+        if self.rect.bottom < 0:
+            self.kill()
+
 
 class Explosion(pygame.sprite.Sprite):
 
@@ -185,13 +236,15 @@ def load_assets(img_dir, snd_dir, fnt_dir):
        assets["player{0}_img".format(e)] = pygame.image.load(path.join(img_dir, "nave_{0}.png".format(e))).convert()
        assets["bullet{0}_img".format(e)] = pygame.image.load(path.join(img_dir, "laser{0}.png".format(e))).convert()
     assets["background"] = pygame.image.load(path.join(img_dir, 'fundo_1.jpg')).convert()
+    
     assets["boom_sound"] = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
     assets["destroy_sound"] = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
     assets["pew_sound"] = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
+    
+    assets["super_bullet0"] = pygame.image.load(path.join(img_dir, "super_bullet0.png")).convert()
+    assets["super_bullet1"] = pygame.image.load(path.join(img_dir, "super_bullet1.png")).convert()
+    
     explosion_anim = []
-    
-#    assets["nave_0_special"] = pygame.image.load(path.join(img_dir, "nave_0_special.jpeg")).convert()
-    
     for i in range(7):
         filename = 'regularExplosion0{}.png'.format(i)
         img = pygame.image.load(path.join(img_dir, filename)).convert()
@@ -229,6 +282,8 @@ def game_screen(screen,p1,p2):
     all_sprites.add(player2)
     bullets1 = pygame.sprite.Group()
     bullets2 = pygame.sprite.Group()
+    super_bullet1 = pygame.sprite.Group()
+    super_bullet2 = pygame.sprite.Group()
     pygame.mixer.music.play(loops=-1)
     
     lives1 = 3
@@ -273,32 +328,24 @@ def game_screen(screen,p1,p2):
                         state = DONE
                     if event.key == pygame.K_n:
                         if player1.bullet_special == True and player1.shot == False:
-                            bullet = Bullet1(player1.rect.centerx, player1.rect.top, assets["bullet{0}_img".format(3)])
-                            all_sprites.add(bullet)
-                            bullets1.add(bullet)
+                            super_bullet = Super_Bullet1(player1.rect.centerx, player1.rect.top, assets["super_bullet0"])
+                            all_sprites.add(super_bullet)
+                            super_bullet1.add(super_bullet)
                             pew_sound.play()
                             player1.last_update = pygame.time.get_ticks()
                             player1.shot=True
                     
                     if event.key == pygame.K_g:
                         if player2.bullet_special == True and player2.shot == False:
-                            bullet = Bullet2(player2.rect.centerx, player2.rect.top, assets["bullet{0}_img".format(3)])
-                            all_sprites.add(bullet)
-                            bullets2.add(bullet)
+                            super_bullet = Super_Bullet2(player2.rect.centerx, player2.rect.top, assets["super_bullet1"])
+                            all_sprites.add(super_bullet)
+                            super_bullet2.add(super_bullet)
                             pew_sound.play()
                             player2.last_update = pygame.time.get_ticks()
                             player2.shot=True
                     
                         
                             
-#                    for e in range(0,500):
-#                        tempo = time.sleep(e)
-#                        if tempo >= 10:
-#                            if event.key == pygame.K_m:
-#                                bean = Bullet(player1.rect.centerx, player1.rect.top, assets["bullet{0}_img".format(p1)])
-#                                all_sprites.add(bean)
-#                                bullets1.add(bean)
-#                            
                         
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
@@ -315,6 +362,18 @@ def game_screen(screen,p1,p2):
         if state == PLAYING:
             
             hits = pygame.sprite.groupcollide(bullets1, bullets2, True, True, pygame.sprite.collide_mask)
+            
+            hits = pygame.sprite.groupcollide(super_bullet1, super_bullet2, True, True, pygame.sprite.collide_mask)
+            
+            
+            hits = pygame.sprite.groupcollide(bullets1, super_bullet2, True, False, pygame.sprite.collide_mask)
+            
+            
+            
+            
+            hits = pygame.sprite.groupcollide(bullets2, super_bullet1, True, False, pygame.sprite.collide_mask)
+
+    
                 
             hits = pygame.sprite.spritecollide(player1, bullets2, False, pygame.sprite.collide_mask)
             if hits:
@@ -327,6 +386,18 @@ def game_screen(screen,p1,p2):
                 explosion_tick = pygame.time.get_ticks()
                 explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
             
+            hits = pygame.sprite.spritecollide(player1, super_bullet2, False, pygame.sprite.collide_mask)
+            if hits:
+                boom_sound.play()
+                player1.kill()
+                lives1 -= 1
+                explosao = Explosion(player1.rect.center, assets["explosion_anim"])
+                all_sprites.add(explosao)
+                state = EXPLODING1
+                explosion_tick = pygame.time.get_ticks()
+                explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
+            
+            
             hits = pygame.sprite.spritecollide(player2, bullets1, False, pygame.sprite.collide_mask)
             if hits:
                 boom_sound.play()
@@ -338,6 +409,17 @@ def game_screen(screen,p1,p2):
                 explosion_tick = pygame.time.get_ticks()
                 explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
                 
+            hits = pygame.sprite.spritecollide(player2, super_bullet1, False, pygame.sprite.collide_mask)
+            if hits:
+                boom_sound.play()
+                player2.kill()
+                lives2 -= 1
+                explosao = Explosion(player2.rect.center, assets["explosion_anim"])
+                all_sprites.add(explosao)
+                state = EXPLODING2
+                explosion_tick = pygame.time.get_ticks()
+                explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
+            
         elif state == EXPLODING1:
             now = pygame.time.get_ticks()
             if now - explosion_tick > explosion_duration:
@@ -360,7 +442,6 @@ def game_screen(screen,p1,p2):
                     
         screen.fill(BLACK)
         screen.blit(background, background_rect)
-        #all_sprites.draw(screen)
         
         text_surface = score_font.render(chr(9829) * lives1, True, RED)
         text_rect = text_surface.get_rect()
@@ -371,6 +452,18 @@ def game_screen(screen,p1,p2):
         text_rect = text_surface.get_rect()
         text_rect.topright = (WIDTH-10, 10)
         screen.blit(text_surface, text_rect)
+        
+        if player1.bullet_special == True and player1.shot == False:
+            text_surface = score_font.render(chr(78), True, YELLOW)
+            text_rect = text_surface.get_rect()
+            text_rect.topright = (WIDTH-10, 500)
+            screen.blit(text_surface, text_rect)
+        
+        if player2.bullet_special == True and player2.shot == False:
+            text_surface = score_font.render(chr(71), True, YELLOW)
+            text_rect = text_surface.get_rect()
+            text_rect.topright = (50, 60)
+            screen.blit(text_surface, text_rect)
         
         
         
