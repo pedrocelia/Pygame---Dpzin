@@ -69,7 +69,7 @@ def selecao_minigame(screen):
     botoes = pygame.sprite.Group()
     
 
-    background = pygame.image.load(path.join(img_dir, 'fundo_1.jpg')).convert()
+    background = pygame.image.load(path.join(img_dir, 'back.jpg')).convert()
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
     Y_ = 10

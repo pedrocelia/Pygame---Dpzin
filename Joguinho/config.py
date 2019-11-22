@@ -18,6 +18,8 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
+
+
 # Estados para controle do fluxo da aplicação
 INIT = 0
 GAME = 1
