@@ -1,16 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat May  4 22:46:12 2019
-
-@author: gabri
-"""
 
 import pygame
+
 import random
 from os import path
 import time
 
-from configs import *
+from config_fut import *
 
 
 from inicio import init_screen

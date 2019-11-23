@@ -1,12 +1,13 @@
 import pygame
-from os import path
-from configs import *
 
-pygame.font.init()
+from os import path
+from config_fut import *
+
+#pygame.font.init()
 def load_assets(img_dir, snd_dir,fnt_dir):
     assets = {}
     assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
-    assets["BOLA"] = pygame.image.load(path.join(img_dir,"disco_hockey.png")).convert()
+    assets["BOLA"] = pygame.image.load(path.join(img_dir,"bola.png")).convert()
     #Mario Assets
     assets["Mario_p2_TIRO_img"] = pygame.image.load(path.join(img_dir,"mario_front_tiro.png")).convert()
     assets["Mario_p1_TIRO_img"] = pygame.image.load(path.join(img_dir,"mario_back_tiro.png")).convert()

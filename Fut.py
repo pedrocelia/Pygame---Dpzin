@@ -1,11 +1,13 @@
 
 import pygame
+
 from os import path
 from config_fut import *
-from classes_hoquei import *
+from classes_fut import *
 from assets_fut import *
 from character_selection import *
 score_font = assets_fut["score_font"]
+
 def Gols_P1(count):
     
     text_surface = score_font.render("Gols P1:{0}".format(count), True,BLACK)
@@ -29,8 +31,9 @@ clock = pygame.time.Clock()
 def fut(screen,personagem1,personagem2, snd_dir):
     P1 = Player1(personagem1)
     P2 = player2(personagem2)
+
     
-    Bola = bola(assets["BOLA"])
+    Bola = bola(assets_fut["BOLA"])
 
     background = pygame.image.load(path.join(img_dir, 'campo.png')).convert()
     background_rect = background.get_rect()
@@ -168,8 +171,10 @@ def fut(screen,personagem1,personagem2, snd_dir):
         if running == True:
             # A cada loop, redesenha o fundo e os sprites
             screen.fill(WHITE)
+            pygame.init()
             screen.blit(background, background_rect)
             all_sprites.draw(screen)
             bola_sprite.draw(screen)
+            
     
     return state

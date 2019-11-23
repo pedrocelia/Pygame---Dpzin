@@ -1,7 +1,7 @@
 from os import path
 
 # Estabelece a pasta que contem as figuras e sons.
-img_dir = path.join(path.dirname(__file__), 'img')
+img_dir = path.join(path.dirname(__file__), 'assets\img')
 snd_dir = path.join(path.dirname(__file__), 'snd')
 fnt_dir = path.join(path.dirname(__file__), 'font')
 

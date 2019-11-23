@@ -9,11 +9,11 @@ from tela_vitoria2 import fim2_screen
 from selacao import select_screen
 from selecao_minigame import selecao_minigame
 from Fut import *
-from classes_fut import *
-from config_fut import *
-from classes_fut import *
-from assets_fut import *
-from character_selection import *
+#from classes_fut import *
+#from config_fut import *
+#from classes_fut import *
+#from assets_fut import *
+#from character_selection import *
 
 
 # Inicialização do Pygame.
