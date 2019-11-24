@@ -2,7 +2,7 @@ import pygame
 from os import path
 import time
 
-from config import img_dir, BLACK, FPS, GAME, QUIT, WIDTH, HEIGHT
+from config import img_dir, BLACK, FPS, GAME, QUIT, WIDTH, HEIGHT, SELECAO_MINIGAME
 
 
 class Botao(pygame.sprite.Sprite):
@@ -83,7 +83,7 @@ def select_screen(screen):
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
-                    state = QUIT
+                    state = SELECAO_MINIGAME
                     running  = False
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()

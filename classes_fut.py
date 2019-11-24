@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May  8 07:08:45 2019
 
-@author: gabri
-"""
 import pygame
 from os import path
 from config_fut import *
@@ -35,8 +30,8 @@ class player1(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Centraliza embaixo da tela.
-        self.rect.centerx = 3*WIDTH /4
-        self.rect.bottom = HEIGHT/2
+        self.rect.centerx = 3*WIDTH1 /4
+        self.rect.bottom = HEIGHT1/2
         
         # Velocidade da nave
         self.speedx = 0
@@ -82,12 +77,12 @@ class player1(pygame.sprite.Sprite):
             self.image.set_colorkey(DARK_BLUE)
             self.image = pygame.transform.scale(player_img, (50, 38))
         # Mantem dentro da tela
-        if self.rect.left < WIDTH/2:
-            self.rect.left = WIDTH/2
-        if self.rect.right > WIDTH:
-            self.rect.right = WIDTH
-        if self.rect.bottom > HEIGHT:
-            self.rect.bottom = HEIGHT
+        if self.rect.left < WIDTH1/2:
+            self.rect.left = WIDTH1/2
+        if self.rect.right > WIDTH1:
+            self.rect.right = WIDTH1
+        if self.rect.bottom > HEIGHT1:
+            self.rect.bottom = HEIGHT1
         if self.rect.top < 0:
             self.rect.top = 0
 class player2(pygame.sprite.Sprite):
@@ -113,8 +108,8 @@ class player2(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Centraliza embaixo da tela.
-        self.rect.centerx = WIDTH /4
-        self.rect.bottom = HEIGHT/2
+        self.rect.centerx = WIDTH1 /4
+        self.rect.bottom = HEIGHT1/2
         
         # Velocidade da nave
         self.speedx = 0
@@ -159,12 +154,12 @@ class player2(pygame.sprite.Sprite):
             self.image = player_img
             self.image.set_colorkey(DARK_BLUE)
             self.image = pygame.transform.scale(player_img, (50, 38))
-        if self.rect.right > WIDTH/2:
-            self.rect.right = WIDTH/2
+        if self.rect.right > WIDTH1/2:
+            self.rect.right = WIDTH1/2
         if self.rect.left < 0:
             self.rect.left = 0
-        if self.rect.bottom > HEIGHT:
-            self.rect.bottom = HEIGHT
+        if self.rect.bottom > HEIGHT1:
+            self.rect.bottom = HEIGHT1
         if self.rect.top < 0:
             self.rect.top = 0    
     
@@ -190,8 +185,8 @@ class bola(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # centraliza embaixo da tela
-        self.rect.centerx = WIDTH /2
-        self.rect.bottom = HEIGHT/2
+        self.rect.centerx = WIDTH1 /2
+        self.rect.bottom = HEIGHT1/2
         
         #Velocidade
         self.speedx = 0
@@ -209,13 +204,13 @@ class bola(pygame.sprite.Sprite):
         self.rect.y += self.speedy
         # Mantem dentro da tela
         
-        if self.rect.right >= WIDTH:
+        if self.rect.right >= WIDTH1:
             if 248 + 255 > self.rect.top > 248 and 248 + 255> self.rect.bottom > 248:
                 self.gol2 = True
                 self.speedx= 0
                 self.speedy= 0
-                self.rect.centerx = WIDTH/2 + 100
-                self.rect.bottom = HEIGHT/2
+                self.rect.centerx = WIDTH1/2 + 100
+                self.rect.bottom = HEIGHT1/2
                 
             else:
                 self.speedx=-self.speedx
@@ -227,14 +222,14 @@ class bola(pygame.sprite.Sprite):
                 self.gol1 = True
                 self.speedx= 0
                 self.speedy= 0
-                self.rect.centerx = WIDTH/2 - 100
-                self.rect.bottom = HEIGHT/2
+                self.rect.centerx = WIDTH1/2 - 100
+                self.rect.bottom = HEIGHT1/2
             else:
                 self.speedx=-self.speedx
 
         if self.rect.left < 0:
             self.rect.left = 0
-        if self.rect.bottom > HEIGHT:
+        if self.rect.bottom > HEIGHT1:
 
             self.speedy=-self.speedy
         if self.rect.top < 0:

@@ -7,7 +7,7 @@ from config import img_dir, BLACK, FPS, GAME, QUIT, SELECT, WIDTH, HEIGHT, SELEC
 def init_screen(screen):
     clock = pygame.time.Clock()
 
-    background = pygame.image.load(path.join(img_dir, 'inicio1.png')).convert()
+    background = pygame.image.load(path.join(img_dir, 'sapori.png')).convert()
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
 

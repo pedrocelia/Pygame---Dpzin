@@ -1,7 +1,7 @@
 import pygame
 from os import path
 
-from config import img_dir, BLACK, FPS, GAME, QUIT, WIDTH, HEIGHT
+from config import img_dir, BLACK, FPS, GAME, QUIT, WIDTH, HEIGHT,SELECAO_MINIGAME
 
 def fim1_screen(screen):
     clock = pygame.time.Clock()
@@ -19,7 +19,7 @@ def fim1_screen(screen):
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
-                    state = QUIT
+                    state = SELECAO_MINIGAME
                     running  = False
                 if event.key == pygame.K_r:
                     state = GAME

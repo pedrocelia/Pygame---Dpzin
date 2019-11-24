@@ -9,22 +9,28 @@ from tela_vitoria2 import fim2_screen
 from selacao import select_screen
 from selecao_minigame import selecao_minigame
 from Fut import *
-#from classes_fut import *
-#from config_fut import *
-#from classes_fut import *
-#from assets_fut import *
-#from character_selection import *
+from classes_fut import *
+from config_fut import *
+from classes_fut import *
+from assets_fut import *
+from character_selection import *
+from inicio import *
+from P1_win_fut import *
+from P2_win_fut import *
 
 
 # Inicialização do Pygame.
+
 pygame.init()
 pygame.mixer.init()
 
 # Tamanho da tela.
 screen = pygame.display.set_mode((WIDTH, HEIGHT),pygame.FULLSCREEN)
 
+
+
 # Nome do jogo
-pygame.display.set_caption("Battle Galaxy")
+pygame.display.set_caption("SAPORININI")
 
 # Comando para evitar travamentos.
 try:
@@ -34,6 +40,9 @@ try:
     while state != QUIT:
         if state == INIT:
             state = init_screen(screen)
+        elif state == INIT_:
+            screen = pygame.display.set_mode((WIDTH1, HEIGHT1),pygame.FULLSCREEN)
+            state = init_screen_(screen)
         elif state == GAME:
             state = game_screen(screen,p1,p2)
         elif state == FIM_1:
@@ -45,6 +54,7 @@ try:
         elif state == SELECAO_MINIGAME:
             state = selecao_minigame(screen)
         elif state == FUT:
+            screen = pygame.display.set_mode((WIDTH1, HEIGHT1),pygame.FULLSCREEN)
             state = p1_select(screen)
             state = char_screen_p1(screen)
             personagem1 = state
@@ -52,8 +62,15 @@ try:
             state = char_screen_p2(screen)
             personagem2 = state
             state = fut(screen,personagem1,personagem2, snd_dir)
+        elif state == p1_victory:
+            screen = pygame.display.set_mode((WIDTH1, HEIGHT1),pygame.FULLSCREEN)
+            state = fim1_fut_screen(screen)
+        elif state == p2_victory:
+            screen = pygame.display.set_mode((WIDTH1, HEIGHT1),pygame.FULLSCREEN)
+            state = fim2_fut_screen(screen)
         else:
             state = QUIT
+
+
 finally:
     pygame.quit()
-

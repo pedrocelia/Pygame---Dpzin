@@ -3,6 +3,7 @@ import pygame
 
 from os import path
 from config_fut import *
+from config import *
 from classes_fut import *
 from assets_fut import *
 from character_selection import *
@@ -29,7 +30,7 @@ clock = pygame.time.Clock()
 #Cria um grupo de sprites e adiciona a nave
 
 def fut(screen,personagem1,personagem2, snd_dir):
-    P1 = Player1(personagem1)
+    P1 = player1(personagem1)
     P2 = player2(personagem2)
 
     
@@ -37,9 +38,9 @@ def fut(screen,personagem1,personagem2, snd_dir):
 
     background = pygame.image.load(path.join(img_dir, 'campo.png')).convert()
     background_rect = background.get_rect()
-    pygame.mixer.music.load(path.join(snd_dir, 'musica_fundo_hockey.mp3'))
-    pygame.mixer.music.play()
-    pygame.mixer.music.set_volume(1)
+#    pygame.mixer.music.load(path.join(snd_dir, 'song.mp3'))
+#    pygame.mixer.music.play()
+#    pygame.mixer.music.set_volume(1)
     pygame.event.wait()
     running = True
     #pygame.mixer.music.play(loops=-1)
@@ -92,6 +93,9 @@ def fut(screen,personagem1,personagem2, snd_dir):
                 if event.key == pygame.K_s:
                     P2.down = True
                     P2.speedy = 8
+                if event.key == pygame.K_q:
+                    state = state = SELECAO_MINIGAME
+                    running  = False
                
                
                     
@@ -152,20 +156,20 @@ def fut(screen,personagem1,personagem2, snd_dir):
             if p1gol- p2gol >=2:
                 pygame.mixer.pause()
                 running = False
-                state = P1_WIN
+                state = p1_victory
             elif p2gol- p1gol >=2:
                 pygame.mixer.pause()
                 running = False
-                state = P2_WIN
+                state = p2_victory
             
         elif p1gol == 5 and p2gol <=4:
             pygame.mixer.pause()
             running = False
-            state = P1_WIN
+            state = p1_victory
         elif p2gol == 5 and p1gol <=4:
             pygame.mixer.pause()
             running = False
-            state = P2_WIN
+            state = p2_victory
                         
         
         if running == True:

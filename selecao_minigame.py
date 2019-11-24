@@ -5,14 +5,15 @@ Created on Wed Nov 13 10:24:37 2019
 @author: Tonera
 """
 
-import pygame
+import pygame, sys
 from os import path
 import time
 
 from config import img_dir, BLACK, FPS, GAME, QUIT, WIDTH, HEIGHT, INIT
+from config_fut import *
 
 JOGO_NAVE = 0
-JOGO_HOCKEY = 1
+JOGO_FUT = 1
 
 class Botao(pygame.sprite.Sprite):
     
@@ -69,7 +70,7 @@ def selecao_minigame(screen):
     botoes = pygame.sprite.Group()
     
 
-    background = pygame.image.load(path.join(img_dir, 'back.jpg')).convert()
+    background = pygame.image.load(path.join(img_dir, 'back.png')).convert()
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
     Y_ = 10
@@ -89,6 +90,7 @@ def selecao_minigame(screen):
             if event.type == pygame.QUIT:
                 state = QUIT
                 running = False
+                sys.exit()
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
@@ -105,7 +107,11 @@ def selecao_minigame(screen):
                             click = 1
                             if jogo == JOGO_NAVE:
                                 state = INIT
-                                running = False 
+                                running = False
+                            if jogo == JOGO_FUT:
+                                state = INIT_
+                                running = False
+                                
                         
                         
                     
