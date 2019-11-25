@@ -2,7 +2,7 @@ from os import path
 
 # Estabelece a pasta que contem as figuras e sons.
 img_dir = path.join(path.dirname(__file__), 'assets\img')
-snd_dir = path.join(path.dirname(__file__), 'assets\snd')
+snd_dir = path.join(path.dirname(__file__), 'assets\sound')
 fnt_dir = path.join(path.dirname(__file__), 'font')
 
 # Dados gerais do jogo.

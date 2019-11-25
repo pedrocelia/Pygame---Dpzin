@@ -38,9 +38,9 @@ def fut(screen,personagem1,personagem2, snd_dir):
 
     background = pygame.image.load(path.join(img_dir, 'campo.png')).convert()
     background_rect = background.get_rect()
-#    pygame.mixer.music.load(path.join(snd_dir, 'song.mp3'))
-#    pygame.mixer.music.play()
-#    pygame.mixer.music.set_volume(1)
+    pygame.mixer.music.load(path.join(snd_dir, 'espera.mp3'))
+    pygame.mixer.music.play()
+    pygame.mixer.music.set_volume(1)
     pygame.event.wait()
     running = True
     #pygame.mixer.music.play(loops=-1)
